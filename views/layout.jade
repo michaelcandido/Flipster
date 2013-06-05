@@ -1,7 +1,12 @@
 doctype 5
 html
   head
-    title= title
+    title
+      block title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    block scripts
   body
-    block content
+    div#content
+      h1
+        a(href='/') Flipster
+      block content

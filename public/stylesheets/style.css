@@ -1,8 +1,173 @@
+@font-face {
+  font-family: Aubrey;
+  src: url('/fonts/AUBREY1__.TTF');
+}
+
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: lemonchiffon;
+}
+
+h1 {
+  text-align: center;
+  font-family: Aubrey;
+  font-size: 56px;
+  font-weight: normal;
+  border-bottom: solid 2px lemonchiffon;
+  margin: 0px;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-weight: normal;
+  margin: 0px;
+  padding: 10px;
+  text-decoration: underline;
 }
 
 a {
   color: #00B7FF;
+}
+
+h1 a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  font-size: 0.9em;
+}
+
+ul li {
+  padding: 4px 8px;
+  background: lemonchiffon;
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+
+#content {
+  width: 950px;
+  margin: auto;
+  background-color: paleturquoise;
+  min-height: 600px;
+  border-radius: 15px;
+}
+
+#error-line {
+  padding: 10px;
+}
+
+#newflip {
+  padding-top: 20px;
+}
+
+#newflip table {
+  margin: auto;
+}
+
+#newflip td:first-child {
+  text-align: right;
+}
+
+#newflip td {
+  padding: 1px 5px;
+}
+
+#watcher-panel {
+  width: 250px;
+  height: 100%;
+  min-height: 600px;
+  float: right;
+  border-left: solid 2px lemonchiffon;
+}
+
+#status-bar {
+  padding: 10px;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+#flip-panel {
+  width: 698px;
+  text-align: center;
+  height: 100%;
+}
+
+#remaining {
+  padding: 10px;
+  margin: 0px;
+  font-size: 1.1em;
+}
+
+#expander {
+  width: 100%;
+  height: 100%;
+}
+
+.coin {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin: 0px auto;
+}
+
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+
+  perspective: 300px;
+  -webkit-perspective: 300px;
+  -moz-perspective: 300px;
+  -ms-perspective: 300px;
+  -o-perspective: 300px;
+}
+
+.card .face {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border: solid 1px black;
+
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+}
+
+.card .back {
+  background: #333;
+
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
+  -moz-transform: rotateX(180deg);
+  -ms-transform: rotateX(180deg);
+  -o-transform: rotateX(180deg);
+}
+
+.card .front {
+  background: #999;
+}
+
+#sorry {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 30px;
 }

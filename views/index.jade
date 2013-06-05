@@ -1,5 +1,23 @@
 extends layout
 
+block title
+  | Flipster
+
 block content
-  h1= title
-  p Welcome to #{title}
+  form#newflip(method='post')
+    table
+      tr
+        td Title
+        td
+          input(type='text', name='title', value='Impromptu Coin Flip')
+      tr
+        td Number of participants
+        td
+          input(type='number', name='threshold', value='2', autofocus)
+      tr
+        td
+        td
+          input(type='submit', name='create_flip', value='Create New Flip')
+      tr
+        td(colspan=2)
+          div#error-line= error

@@ -1,0 +1,26 @@
+extends layout
+
+block title
+  | #{title}
+
+block scripts
+  script(type='text/javascript', src='/javascripts/jquery.js')
+  script(type='text/javascript', src='/javascripts/jquery.transit.js')
+  script(type='text/javascript', src='/socket.io/socket.io.js')
+  script(type='text/javascript', src='/javascripts/flip.js')
+  script.
+    _flipjs({ fid: #{fid}, result: #{JSON.stringify(result)} });
+
+block content
+  div#watcher-panel
+    div#status-bar
+    ul#watcher-list
+  div#flip-panel
+      h2= title
+      div.coin
+        div.card
+            div.face.back
+            div.face.front
+      br
+      input(type='button', name='flipper', value='Flip Coin', disabled)
+div#remaining
