@@ -6,6 +6,8 @@
 
 var model = require('../model').get();
 
+var HOSTNAME = 'flipster-michaelcandido.nodejitsu.com';
+
 exports.index = function (req, res) {
   res.render('index', req.query);
 };
@@ -36,7 +38,8 @@ exports.viewFlip = function (req, res) {
     res.render('flip', {
       fid: fid,
       title: model.getTitle(fid),
-      result: model.getResult(fid)
+      result: model.getResult(fid),
+      link: 'http://' + HOSTNAME + '/flip/' + fid
     });
   }
 };
