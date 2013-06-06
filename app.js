@@ -35,12 +35,6 @@ app.get('/flip/:fid', controller.viewFlip);
 app.get('/flipnotfound', controller.notFound);
 app.get('*', controller.defaultAction);
 
-// websockets not supported on heroku
-io.configure(function () {
-  io.set('transports', ['xhr-polling']);
-  io.set('polling duration', 10);
-});
-
 var server = http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
