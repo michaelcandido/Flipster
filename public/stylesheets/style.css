@@ -19,11 +19,12 @@ h1 {
 }
 
 h2 {
+  font-family: Aubrey;
+  font-size: 26px;
   text-align: center;
   font-weight: normal;
   margin: 0px;
   padding: 10px;
-  text-decoration: underline;
 }
 
 a {

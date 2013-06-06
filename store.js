@@ -1,13 +1,12 @@
 
  /**
-  * Underlying data store for the model. Implementing the abstraction requires
-  * implementing 4 functions: createFlip, exists, getFlip, and updateFlip.
+  * An abstraction of the underlying data store for the model. Can be
+  * easily switched out by implementing 4 functions: createFlip,
+  * exists, getFlip, and updateFlip.
   */
 
-/**
- * Defines an interface for passing data between the store and model. Code
- * outside of the model should not be aware of the Flip class.
- */
+// Flip objects define an interface for passing data between the store
+// and model.
 function Flip(title, threshold, result, watcherCount) {
   this.title = title;
   this.threshold = threshold;
@@ -41,29 +40,27 @@ exports.Store = function () {
   };
 
   /**
-   * Returns true if a flip with the given fid exists, false otherwise.
+   * Returns true if a flip with the given fid exists, false
+   * otherwise.
    */
   this.exists = function (fid) {
     return fid in flips;
   };
 
   /**
-   * Returns a Flip object representing the flip with the given fid. Calling with
-   * an invalid fid will result in undefined behavior.
+   * Returns a Flip object representing the flip with the given
+   * fid. Calling with an invalid fid will result in undefined
+   * behavior.
    */
   this.getFlip = function (fid) {
-    if (!this.exists(fid))
-      return new Error('flip does not exist'); // assertion
     return flips[fid];    
   };
 
   /**
-   * Updates the flip corresponding to the given fid with the data in the given
-   * record (a Flip object). Returns the new record.
+   * Updates the flip corresponding to the given fid with the data in
+   * the given record (a Flip object). Returns the new record.
    */
   this.updateFlip = function (fid, record) {
-    if (!this.exists(fid))
-      return new Error('attempting to update a nonexistent flip'); // assertion
     flips[fid] = record;
     return record;
   };

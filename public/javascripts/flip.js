@@ -1,4 +1,9 @@
 
+ /**
+  * Dynamic UI plumbing for the flip view. Connects a socket to the
+  * server and updates the UI as events arrive.
+  */
+
 var _flipjs = (function () {
 
   var ROTATION = 1080, ROTATION_OFFSET = 180, ROTATION_TIME_RATIO = 25 / 18;
@@ -31,9 +36,7 @@ var _flipjs = (function () {
     }
   }
 
-  /**
-   * Rendering work.
-   */
+  // rendering work
   $(function () {
     if (result === undefined)
       throw new Error('result not initialized');
@@ -48,9 +51,7 @@ var _flipjs = (function () {
     }
   });
 
-  /**
-   * Connection work.
-   */
+  // connection work
   $(function () {
     if (fid === undefined)
       throw new Error('fid not initialized');
@@ -69,7 +70,7 @@ var _flipjs = (function () {
     socket.on('notready', function () {
       flipper.attr('disabled', 'disabled');
     });
-    // note: a count event is sent immediately after connection
+    // note that a count event is sent immediately after connection
     socket.on('count', updateCount);
     socket.on('addWatcher', function (tag) {
       var view = $('<li>' + tag + '</li>');

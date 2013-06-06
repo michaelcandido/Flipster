@@ -1,13 +1,14 @@
 
 /**
- * Module dependencies.
+ * Sets up the server for the app and passes off requests to the
+ * controller.
  */
 
 var express = require('express')
   , http = require('http')
   , io = require('socket.io')
   , path = require('path')
-  , model = require('./model').get()
+  , controller = require('./routes/controller')
   , comm = require('./comm')
 
 var app = express();
@@ -28,49 +29,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', function (req, res) {
-  res.render('index', req.query);
-});
-app.post('/', function (req, res) {
-  var error = false;
-  if (!('threshold' in req.body))
-    error = 'invalid request';
-  else {
-    var threshold = parseInt(req.body.threshold);
-    if (isNaN(threshold))
-      error = 'number of participants was not a number';
-    else if (threshold < 1)
-      error = 'cannot have fewer than 1 watcher';
-  }
-
-  if (error)
-    res.redirect('/?error=' + encodeURIComponent(error));
-  else {
-    var fid = model.createFlip(req.body.title, threshold);
-    res.redirect('/flip/' + fid)
-  }
-});
-
-app.get('/flip/:fid', function (req, res) {
-  if (!model.exists(req.params.fid))
-    res.redirect('/flipnotfound');
-  else {
-    var fid = req.params.fid; // TODO: check invalid conditions
-    res.render('flip', {
-      fid: fid,
-      title: model.getTitle(fid),
-      result: model.getResult(fid)
-    });
-  }
-});
-
-app.get('/flipnotfound', function (req, res) {
-  res.render('flipnotfound');
-});
-
-app.get('*', function(req, res) {
-  res.redirect('/flipnotfound');
-});
+app.get('/', controller.index);
+app.post('/', controller.newFlip);
+app.get('/flip/:fid', controller.viewFlip);
+app.get('/flipnotfound', controller.notFound);
+app.get('*', controller.defaultAction);
 
 var server = http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));

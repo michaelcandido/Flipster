@@ -1,6 +1,6 @@
 
 /**
- * A model of all the coin flips. 
+ * A model of all the coin flips. Maintains the internal state of the app.
  */
 
 var Store = require('./store').Store;
