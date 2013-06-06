@@ -1,10 +1,37 @@
 
-var model = require('./model').get();
+var util = require('util')
+  , model = require('./model').get();
 
-var watchers = {};
+var watchers = {}, watcherTags = {};
 
-function getWatcherTag(watcherSocket) {
-  return watcherSocket.id + '@' + watcherSocket.handshake.address.address;
+function getWatcherTag(fid, watcherSocket) {
+  if (!(fid in watcherTags)) {
+    watcherTags[fid] = {
+      tags: {},
+      counter: 0
+    };
+  }
+      
+  if (!(watcherSocket.id in watcherTags[fid].tags)) {
+    var addr = watcherSocket.handshake.address.address;
+    watcherTags[fid].tags[watcherSocket.id] =
+      util.format('Anonymous %d - %s', ++watcherTags[fid].counter, addr);
+  }
+
+  return watcherTags[fid].tags[watcherSocket.id];
+}
+
+function isDictionaryEmpty(dict) {
+  for (var k in dict)
+    return false;
+  return true;
+}
+
+function freeWatcherTag(fid, watcherSocket) {
+  delete watcherTags[fid].tags[watcherSocket.id];
+  var isEmpty = true;
+  if (isDictionaryEmpty(watcherTags[fid].tags))
+    delete watcherTags[fid];
 }
 
 function massEmit(sockets, event, data) {
@@ -27,10 +54,10 @@ function addWatcher(toAdd, fid) {
 
   var group = watchers[fid];
   for (var i = 0; i < group.length; i++)
-    toAdd.emit('addWatcher', getWatcherTag(group[i]));
+    toAdd.emit('addWatcher', getWatcherTag(fid, group[i]));
   group.push(toAdd);
   model.incrementWatchers(fid);
-  massEmit(group, 'addWatcher', getWatcherTag(toAdd));
+  massEmit(group, 'addWatcher', getWatcherTag(fid, toAdd));
   updateCount(fid);
 }
 
@@ -38,11 +65,13 @@ function removeWatcher(toRemove, fid) {
   var group = watchers[fid];
   group.splice(group.indexOf(toRemove), 1); // remove from array
   model.decrementWatchers(fid);
-  massEmit(group, 'removeWatcher', getWatcherTag(toRemove));
+  massEmit(group, 'removeWatcher', getWatcherTag(fid, toRemove));
   updateCount(fid);
 
+  freeWatcherTag(fid, toRemove);
+
   if (group.length == 0)
-    delete watchers[fid];
+    delete watchers[fid]
 }
 
 exports.handler = function (socket) {

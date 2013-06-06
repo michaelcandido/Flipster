@@ -47,6 +47,7 @@ ul li {
   background: lemonchiffon;
   margin-bottom: 6px;
   white-space: nowrap;
+  text-align: center;
 }
 
 #content {
@@ -112,7 +113,7 @@ ul li {
   width: 120px;
   height: 120px;
   position: relative;
-  margin: 0px auto;
+  margin: 20px auto;
 }
 
 .card {
@@ -139,7 +140,7 @@ ul li {
   position: absolute;
   top: 0px;
   left: 0px;
-  border: solid 1px black;
+  border: solid 1px #777;
 
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -153,7 +154,7 @@ ul li {
 }
 
 .card .back {
-  background: #333;
+  background: url('/images/noise-dark.png');
 
   transform: rotateX(180deg);
   -webkit-transform: rotateX(180deg);
@@ -163,7 +164,7 @@ ul li {
 }
 
 .card .front {
-  background: #999;
+  background: url('/images/noise-light.png');
 }
 
 #sorry {
