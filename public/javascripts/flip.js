@@ -28,7 +28,10 @@ var _flipjs = (function () {
 
   function updateRemaining(rem) {
     if (result === null) {
-      remaining.text(rem > 0 ? rem + ' remaining' : 'ready to flip!');
+      if (rem > 0)
+        remaining.text('waiting on ' + rem + ' more to join...');
+      else
+        remaining.text('ready to flip!')
       flipper.show();
     } else {
       remaining.text('Flip result: ' + (result ? 'heads' : 'tails') + '!');
@@ -45,6 +48,7 @@ var _flipjs = (function () {
     watcherList = $('#watcher-list')        , remaining = $('#remaining') ,
     coin        = $('.coin');
 
+    status.text('waiting to connect...');
     if (result === false) {
       coin.children().css({ rotateX: '+=' + ROTATION_OFFSET + 'deg' });
       updateRemaining();
