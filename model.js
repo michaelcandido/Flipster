@@ -3,7 +3,7 @@
  * A model of all the coin flips. Maintains the internal state of the app.
  */
 
-var Store = require('./store').Store;
+var DefaultStore = require('./store').Store;
 var singleton = null;
 
 exports.get = function () {
@@ -12,8 +12,8 @@ exports.get = function () {
   return singleton;
 };
 
-exports.Model = function () {
-  var store = new Store;
+exports.Model = function (_store) {
+  var store = _store || new DefaultStore;
   
   this.createFlip = store.createFlip;
   this.exists = store.exists;
