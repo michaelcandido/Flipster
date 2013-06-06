@@ -1,7 +1,7 @@
 
 /**
  * Manages connected sockets and handles the realtime responsibilites
- * of the app, including updating the connected user list and flipping
+ * of the app including updating the connected user list and flipping
  * coins.
  */
 
